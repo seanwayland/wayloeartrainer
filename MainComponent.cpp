@@ -2,6 +2,8 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <random>
+#include <iostream>
 
 
 
@@ -10,15 +12,13 @@ class MainContentComponent   : public AudioAppComponent,
                                public ChangeListener,
                                public Button::Listener
 
+
 {
 public:
-    MainContentComponent()
-    :   state (Stopped)
-    {
-       // addAndMakeVisible (&openButton);
-       // openButton.setButtonText ("Open...");
-       // openButton.addListener (this);
-        
+MainContentComponent()
+:   state (Stopped)
+{
+
 
         
         addAndMakeVisible (&playButton);
@@ -27,18 +27,13 @@ public:
         playButton.setColour (TextButton::buttonColourId, Colours::green);
         playButton.setEnabled (true);
 
-        addAndMakeVisible (&stopButton);
-        stopButton.setButtonText ("Stop");
-        stopButton.addListener (this);
-        stopButton.setColour (TextButton::buttonColourId, Colours::red);
-        stopButton.setEnabled (false);
-        
+   
         setSize (300, 200);
         
         formatManager.registerBasicFormats();       // [1]
         transportSource.addChangeListener (this);   // [2]
 
-        setAudioChannels (2, 2);
+        setAudioChannels (0, 2);
     }
     
     ~MainContentComponent()
@@ -69,9 +64,9 @@ public:
 
     void resized() override
     {
-        openButton.setBounds (10, 10, getWidth() - 20, 20);
+
         playButton.setBounds (10, 40, getWidth() - 20, 20);
-        stopButton.setBounds (10, 70, getWidth() - 20, 20);
+
     }
     
     void changeListenerCallback (ChangeBroadcaster* source) override
@@ -87,18 +82,19 @@ public:
 
     void buttonClicked (Button* button) override
     {
-       // if (button == &openButton)  openButtonClicked();
+
         if (button == &playButton)  playButtonClicked();
-        if (button == &stopButton)  stopButtonClicked();
+
     }
 
 private:
     enum TransportState
     {
+        Initial,
         Stopped,
         Starting,
         Playing,
-        Stopping
+        Finished
     };
     
     void changeState (TransportState newState)
@@ -109,10 +105,26 @@ private:
             
             switch (state)
             {
-                case Stopped:                           // [3]
-                    stopButton.setEnabled (false);
-                    playButton.setEnabled (true);
+                
+                case Initial:
+                    
                     transportSource.setPosition (0.0);
+                    filesPlayed = 0;
+                    break;
+                    
+                    
+                case Stopped:                           // [3]
+
+                    filesPlayed ++;
+                    if (filesPlayed == 1)
+                    {
+
+                        int choice2 = Random::getSystemRandom().nextInt(2);
+                        playfile(choice2);
+                    }
+                    
+                    
+                
                     break;
                     
                 case Starting:                          // [4]
@@ -121,47 +133,25 @@ private:
                     break;
                     
                 case Playing:                           // [5]
-                    stopButton.setEnabled (true);
+ //                   stopButton.setEnabled (true);
                     break;
                     
-                case Stopping:                          // [6]
+                case Finished:
+                    playButton.setEnabled (true);// [6]
                     transportSource.stop();
+                    transportSource.setPosition (0.0);
                     break;
             }
         }
     }
     
-   // void openButtonClicked()
-   // {
-     //   FileChooser chooser ("Select a Wave file to play...",
-     //                        File::nonexistent,
-     //                        "*.wav");                                        // [7]
+
         
-     //   if (chooser.browseForFileToOpen())                                    // [8]
-     //   {
-     //       File file (chooser.getResult());                                  // [9]
-     //       AudioFormatReader* reader = formatManager.createReaderFor (file); // [10]
             
-     //       if (reader != nullptr)
-      //      {
-      //          ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true); // [11]
-      //          transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);                         // [12]
-      //          playButton.setEnabled (true);                                                                  // [13]
-       //         readerSource = newSource.release();                                                            // [14]
-     //       }
-      //  }
-   // }
-    
-    void playButtonClicked()
+
+    void playfile(int n)
     {
-//        updateLoopState (loopingToggle.getToggleState());
-        
-        //File & currentDir = File::getCurrentWorkingDirectory();
-        //File & audioFile = currentDir.getChildFile("Didier Sinclair - Lovely Flight.wav");
-        //File file = File::getSpecialLocation (File::currentExecutableFile).getChildFile (String("iambe.wav"));
-        
-        
-        AudioFormatReader* reader = formatManager.createReaderFor( new MemoryInputStream(BinaryData::C5_mp3, BinaryData::C5_mp3Size, false));
+        AudioFormatReader* reader = formatManager.createReaderFor( new MemoryInputStream(BinaryData::getNamedResource(BinaryData::namedResourceList[n], mp3Size), mp3Size, false));
         if (reader != nullptr)
         {
             ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
@@ -170,32 +160,62 @@ private:
             readerSource = newSource.release();
         }
         if (reader == nullptr)
-           {
-               playButton.setEnabled (false);
-           }
-            
+        {
+            playButton.setEnabled (false);
+        }
+        transportSource.setPosition (0.0);
         changeState (Starting);
-        
-
-        
-
-        
     }
     
-    void stopButtonClicked()
+ 
+    
+    void playButtonClicked()
+    {
+
+        int choice1 = Random::getSystemRandom().nextInt(2);
+
+
+        playfile(choice1);
+    }
+    
+        
+
+        
+
+
+        
+
+        
+    
+    
+    
+    
+/*    void stopButtonClicked()
     {
         changeState (Stopping);
     }
+*/
     
     //==========================================================================
-    TextButton openButton;
+//    TextButton openButton;
     TextButton playButton;
-    TextButton stopButton;
+//    TextButton stopButton;
     
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;
     AudioTransportSource transportSource;
     TransportState state;
+    char* note;
+    char* newnote;
+
+    int filesPlayed = 0;
+    int f;
+    int mp3Size = 93546;
+    
+ //   Range::range<int> range(const int 0,const int 1);
+  
+
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
