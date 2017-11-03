@@ -119,7 +119,7 @@ private:
                     if (filesPlayed == 1)
                     {
 
-                        int choice2 = Random::getSystemRandom().nextInt(2);
+                        int choice2 = Random::getSystemRandom().nextInt(35);
                         playfile(choice2);
                     }
                     
@@ -172,9 +172,9 @@ private:
     void playButtonClicked()
     {
 
-        int choice1 = Random::getSystemRandom().nextInt(2);
+        int choice1 = Random::getSystemRandom().nextInt(35);
 
-
+        
         playfile(choice1);
     }
     
@@ -210,7 +210,7 @@ private:
 
     int filesPlayed = 0;
     int f;
-    int mp3Size = 93546;
+    int mp3Size = 21924;
     
  //   Range::range<int> range(const int 0,const int 1);
   
