@@ -264,6 +264,7 @@ private:
                         numbers[h] = 0;
                     }
                     s=0;
+                    found =0;
                     
                     ss =0;
                     i=0;
@@ -353,28 +354,34 @@ private:
             if (numbers[i] == 1)
             {
                 myvector.push_back(i);
+                found = 1;
             }
         }
-    // select a random number and than grap an index from my vector
-        s = myvector.size();
-        ss = int(s);
-        choice = Random::getSystemRandom().nextInt(ss);
-        int octavechoice = Random::getSystemRandom().nextInt(2);
-        if (octaveRange == 1)
-        {
-            oct = 0;
-        }
-        if (octaveRange == 2)
-        {
-            oct = octavechoice;
-        }
         
+        if (found == 0)
+        {
+            changeState(Initial);
             
-        
-        int f = myvector.at(choice);
-        noteToPlay = f + (oct*12)   ;
-    
-        playfile(noteToPlay);
+        }
+    // select a random number and than grap an index from my vector
+        else
+        {
+            s = myvector.size();
+            ss = int(s);
+            choice = Random::getSystemRandom().nextInt(ss);
+            int octavechoice = Random::getSystemRandom().nextInt(2);
+            if (octaveRange == 1)
+            {
+            oct = 0;
+            }
+            if (octaveRange == 2)
+            {
+            oct = octavechoice;
+            }
+            int f = myvector.at(choice);
+            noteToPlay = f + (oct*12);
+            playfile(noteToPlay);
+        }
     }
     void noteButtonClicked()
     {
@@ -732,6 +739,7 @@ private:
     int includeAsharpButtonpressed = 0;
     int includeBButtonpressed = 0;
     int resetButtonpressed = 0;
+    int found =0;
 
     
     // size of each binary file is the same
