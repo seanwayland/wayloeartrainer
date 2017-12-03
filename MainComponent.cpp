@@ -2,7 +2,7 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include <random>
+//#include <random>
 #include <iostream>
 #include <vector>
 
@@ -25,8 +25,25 @@ MainContentComponent()
 :   state (Stopped)
 
 {
+        // labels or all the various functions
+        addAndMakeVisible (titleLabel);
+        titleLabel.setFont (Font (16.0f, Font::bold));
+        titleLabel.setText ("WayloEarTrainer www.seanwayland.com", dontSendNotification);
+        titleLabel.setColour (Label::textColourId, Colours::lightgreen);
+        titleLabel.setJustificationType (Justification::left);
     
-
+        addAndMakeVisible (instructionsLabel);
+        instructionsLabel.setFont (Font (16.0f, Font::bold));
+        instructionsLabel.setText ("Select notes (left) then play  ", dontSendNotification);
+        instructionsLabel.setColour (Label::textColourId, Colours::lightgreen);
+        instructionsLabel.setJustificationType (Justification::left);
+    
+        addAndMakeVisible (instructions2Label);
+        instructions2Label.setFont (Font (16.0f, Font::bold));
+        instructions2Label.setText ("2,4 or 6 notes. 1 or 2 octaves.", dontSendNotification);
+        instructions2Label.setColour (Label::textColourId, Colours::lightgreen);
+        instructions2Label.setJustificationType (Justification::left);
+    
 
     
         addAndMakeVisible (&playButton);
@@ -43,7 +60,7 @@ MainContentComponent()
         noteButton.setEnabled (true);
     
         addAndMakeVisible (&eightNoteButton);
-        eightNoteButton.setButtonText ("play 8 notes");
+        eightNoteButton.setButtonText ("play 6 notes");
         eightNoteButton.addListener (this);
         eightNoteButton.setColour (TextButton::buttonColourId, Colours::red);
         eightNoteButton.setEnabled (true);
@@ -57,8 +74,14 @@ MainContentComponent()
         addAndMakeVisible (&includeCButton);
         includeCButton.setButtonText ("Include C");
         includeCButton.addListener (this);
-        includeCButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeCButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeCButton.setEnabled (true);
+    
+        addAndMakeVisible (&playCButton);
+        playCButton.setButtonText ("Play C");
+        playCButton.addListener (this);
+        playCButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playCButton.setEnabled (true);
     
         addAndMakeVisible (&includeCsharpButton);
         includeCsharpButton.setButtonText ("Include C#");
@@ -66,11 +89,30 @@ MainContentComponent()
         includeCsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
         includeCsharpButton.setEnabled (true);
     
+        addAndMakeVisible (&playCsharpButton);
+        playCsharpButton.setButtonText ("Play C#");
+        playCsharpButton.addListener (this);
+        playCsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
+        playCsharpButton.setEnabled (true);
+    
+    
+
+    
+
+    
         addAndMakeVisible (&includeDButton);
         includeDButton.setButtonText ("Include D");
         includeDButton.addListener (this);
-        includeDButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeDButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeDButton.setEnabled (true);
+    
+        addAndMakeVisible (&playDButton);
+        playDButton.setButtonText ("Play D");
+        playDButton.addListener (this);
+        playDButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playDButton.setEnabled (true);
+    
+    
     
         addAndMakeVisible (&includeDsharpButton);
         includeDsharpButton.setButtonText ("Include D#");
@@ -78,17 +120,38 @@ MainContentComponent()
         includeDsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
         includeDsharpButton.setEnabled (true);
     
+        addAndMakeVisible (&playDsharpButton);
+        playDsharpButton.setButtonText ("Play D#");
+        playDsharpButton.addListener (this);
+        playDsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
+        playDButton.setEnabled (true);
+
+    
         addAndMakeVisible (&includeEButton);
         includeEButton.setButtonText ("Include E");
         includeEButton.addListener (this);
-        includeEButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeEButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeEButton.setEnabled (true);
+    
+        addAndMakeVisible (&playEButton);
+        playEButton.setButtonText ("Play E");
+        playEButton.addListener (this);
+        playEButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playEButton.setEnabled (true);
     
         addAndMakeVisible (&includeFButton);
         includeFButton.setButtonText ("Include F");
         includeFButton.addListener (this);
-        includeFButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeFButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeFButton.setEnabled (true);
+    
+
+    
+        addAndMakeVisible (&playFButton);
+        playFButton.setButtonText ("Play F");
+        playFButton.addListener (this);
+        playFButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playFButton.setEnabled (true);
     
         addAndMakeVisible (&includeFsharpButton);
         includeFsharpButton.setButtonText ("Include F#");
@@ -96,11 +159,23 @@ MainContentComponent()
         includeFsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
         includeFsharpButton.setEnabled (true);
     
+        addAndMakeVisible (&playFsharpButton);
+        playFsharpButton.setButtonText ("Play F#");
+        playFsharpButton.addListener (this);
+        playFsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
+        playFButton.setEnabled (true);
+    
         addAndMakeVisible (&includeGButton);
         includeGButton.setButtonText ("Include G");
         includeGButton.addListener (this);
-        includeGButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeGButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeGButton.setEnabled (true);
+    
+        addAndMakeVisible (&playGButton);
+        playGButton.setButtonText ("Play G");
+        playGButton.addListener (this);
+        playGButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playGButton.setEnabled (true);
     
         addAndMakeVisible (&includeGsharpButton);
         includeGsharpButton.setButtonText ("Include G#");
@@ -108,11 +183,23 @@ MainContentComponent()
         includeGsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
         includeGsharpButton.setEnabled (true);
     
+        addAndMakeVisible (&playGsharpButton);
+        playGsharpButton.setButtonText ("Play G#");
+        playGsharpButton.addListener (this);
+        playGsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
+        playGButton.setEnabled (true);
+    
         addAndMakeVisible (&includeAButton);
         includeAButton.setButtonText ("Include A");
         includeAButton.addListener (this);
-        includeAButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeAButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeAButton.setEnabled (true);
+    
+        addAndMakeVisible (&playAButton);
+        playAButton.setButtonText ("Play A");
+        playAButton.addListener (this);
+        playAButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playAButton.setEnabled (true);
     
         addAndMakeVisible (&includeAsharpButton);
         includeAsharpButton.setButtonText ("Include A#");
@@ -120,19 +207,37 @@ MainContentComponent()
         includeAsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
         includeAsharpButton.setEnabled (true);
     
+        addAndMakeVisible (&playAsharpButton);
+        playAsharpButton.setButtonText ("Play A#");
+        playAsharpButton.addListener (this);
+        playAsharpButton.setColour (TextButton::buttonColourId, Colours::blue);
+        playAButton.setEnabled (true);
+    
         addAndMakeVisible (&includeBButton);
         includeBButton.setButtonText ("Include B");
         includeBButton.addListener (this);
-        includeBButton.setColour (TextButton::buttonColourId, Colours::lightblue);
+        includeBButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
         includeBButton.setEnabled (true);
+    
+        addAndMakeVisible (&playBButton);
+        playBButton.setButtonText ("Play B");
+        playBButton.addListener (this);
+        playBButton.setColour (TextButton::buttonColourId, Colours::lightsalmon);
+        playBButton.setEnabled (true);
     
         addAndMakeVisible (&resetButton);
         resetButton.setButtonText ("reset");
         resetButton.addListener (this);
         resetButton.setColour (TextButton::buttonColourId, Colours::orange);
         resetButton.setEnabled (true);
+    
+        addAndMakeVisible (&repeatButton);
+        repeatButton.setButtonText ("repeat");
+        repeatButton.addListener (this);
+        repeatButton.setColour (TextButton::buttonColourId, Colours::orange);
+        repeatButton.setEnabled (true);
 
-        setSize (600, 600);
+        setSize (320, 480);
 
     
         formatManager.registerBasicFormats();       // [1]
@@ -141,18 +246,13 @@ MainContentComponent()
         setAudioChannels (0, 2);
     }
     
+    // destructor
     ~MainContentComponent()
     {
         shutdownAudio();
     }
     
-//    void MainComponent::paint (Graphics& g)
-//    {
-//        g.fillAll (Colours::lightblue);
-//        g.setColour (Colours::darkblue);
-//        g.setFont (20.0f);
 
-//    }
 
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
     {
@@ -177,32 +277,49 @@ MainContentComponent()
 
     void resized() override
     {
+        
+        // sizing of all buttons in application
 
-        playButton.setBounds (10, 40, getWidth() - 20, 20);
-        noteButton.setBounds (10, 70, getWidth() - 20, 20);
-        eightNoteButton.setBounds (10, 100, getWidth() - 20, 20);
-        oneOctaveButton.setBounds (10, 130, getWidth() - 20, 20);
-        includeCButton.setBounds (10, 160, getWidth() - 20, 20);
-        includeCsharpButton.setBounds (10, 190, getWidth() - 20, 20);
-        includeDButton.setBounds (10, 220, getWidth() - 20, 20);
-        includeDsharpButton.setBounds (10, 250, getWidth() - 20, 20);
-        includeEButton.setBounds (10, 280, getWidth() - 20, 20);
-        includeFButton.setBounds (10, 310, getWidth() - 20, 20);
-        includeFsharpButton.setBounds (10, 340, getWidth() - 20, 20);
-        includeGButton.setBounds (10, 370, getWidth() - 20, 20);
-        includeGsharpButton.setBounds (10, 400, getWidth() - 20, 20);
-        includeAButton.setBounds (10, 430, getWidth() - 20, 20);
-        includeAsharpButton.setBounds (10, 460, getWidth() - 20, 20);
-        includeBButton.setBounds (10, 490, getWidth() - 20, 20);
-        resetButton.setBounds (10, 520, getWidth() - 20, 20);
+        playButton.setBounds (10, 10, 150, 30);
+        repeatButton.setBounds (160, 10, 150, 30);
+        noteButton.setBounds (10, 40,  150, 30);
+        eightNoteButton.setBounds (160, 40,  150, 30);
+        oneOctaveButton.setBounds (10, 70,  150, 30);
+        resetButton.setBounds (160, 70,  150, 30);
+        includeCButton.setBounds (10, 130,  150, 20);
+        includeCsharpButton.setBounds (10, 150,  150, 20);
+        includeDButton.setBounds (10, 170,  150, 20);
+        includeDsharpButton.setBounds (10, 190,  150, 20);
+        includeEButton.setBounds (10, 210,  150, 20);
+        includeFButton.setBounds (10, 230,  150, 20);
+        includeFsharpButton.setBounds (10, 250,  150, 20);
+        includeGButton.setBounds (10, 270,  150, 20);
+        includeGsharpButton.setBounds (10, 290,  150, 20);
+        includeAButton.setBounds (10, 310, 150, 20);
+        includeAsharpButton.setBounds (10, 330,  150, 20);
+        includeBButton.setBounds (10, 350,  150, 20);
+        playCButton.setBounds (160, 130,  150, 20);
+        playCsharpButton.setBounds (160, 150,  150, 20);
+        playDButton.setBounds (160, 170,  150, 20);
+        playDsharpButton.setBounds (160, 190,  150, 20);
+        playEButton.setBounds (160, 210,  150, 20);
+        playFButton.setBounds (160, 230,  150, 20);
+        playFsharpButton.setBounds (160, 250,  150, 20);
+        playGButton.setBounds (160, 270, 150, 20);
+        playGsharpButton.setBounds (160, 290,  150, 20);
+        playAButton.setBounds (160, 310, 150, 20);
+        playAsharpButton.setBounds (160, 330,  150, 20);
+        playBButton.setBounds (160, 350,  150, 20);
+        titleLabel.setBounds (10, 380,  300, 20);
+        instructionsLabel.setBounds (10, 400,300  , 20);
+        instructions2Label.setBounds (10, 420,300, 20);
+        
+        
 
     }
     
-//    void paint() override
-//    {
-//       g.fillAll (Colours::lightblue);
-//    }
-    
+
+    // when a file stops playing the state is changed
     void changeListenerCallback (ChangeBroadcaster* source) override
     {
         if (source == &transportSource)
@@ -213,7 +330,7 @@ MainContentComponent()
                 changeState (Stopped);
         }
     }
-
+      // methods for pressing of each button
     void buttonClicked (Button* button) override
     {
 
@@ -234,6 +351,21 @@ MainContentComponent()
         if (button == &includeAsharpButton)  includeAsharpButtonClicked();
         if (button == &includeBButton)  includeBButtonClicked();
         if (button == &resetButton)  resetButtonClicked();
+        if (button == &repeatButton)  repeatButtonClicked();
+        
+        if (button == &playCButton)  playCButtonClicked();
+        if (button == &playCsharpButton)  playCsharpButtonClicked();
+        if (button == &playDButton)  playDButtonClicked();
+        if (button == &playDsharpButton)  playDsharpButtonClicked();
+        if (button == &playEButton)  playEButtonClicked();
+        if (button == &playFButton)  playFButtonClicked();
+        if (button == &playFsharpButton)  playFsharpButtonClicked();
+        if (button == &playGButton)  playGButtonClicked();
+        if (button == &playGsharpButton)  playGsharpButtonClicked();
+        if (button == &playAButton)  playAButtonClicked();
+        if (button == &playAsharpButton)  playAsharpButtonClicked();
+        if (button == &playBButton)  playBButtonClicked();
+
         
         
     
@@ -256,12 +388,17 @@ private:
             state = newState;
             switch (state)
             {
+                    // reset all variables and arrays to zero
                 case Initial:
                     transportSource.setPosition (0.0);
                     filesPlayed = 0;
                     for (int h=0; h < 12; h++)
                     {
                         numbers[h] = 0;
+                    }
+                    for (int hh=0; hh<6; hh++)
+                    {
+                        notesPlayed[hh]=0;
                     }
                     s=0;
                     found =0;
@@ -275,9 +412,21 @@ private:
                     myvector.empty();
                     myvector.clear();
                     myvector.empty();
+                    
+                    
                     break;
                     
                 case Stopped:
+                    // oneshot is a boolean which is set if a note is played once
+                    if (oneShot==1)
+                    {
+                        oneShot =0;
+                        changeState(Finished);
+                        
+                        
+                    }
+                    if (playClicked == 1)
+                { // if play button is clicked and a file stops then keep choosing new notes and playing
                     filesPlayed ++;
                     if (filesPlayed <numNotes)
                     {
@@ -300,8 +449,28 @@ private:
                         
                         int g = myvector.at(choice2);
                         noteToPlay = g + (oct*12)   ;
-                        
+                        // store notes played in notesPlayed array if needed to be repeated
+                        notesPlayed[filesPlayed]=noteToPlay;
                         playfile(noteToPlay);
+                        
+                    }
+                } // if repeat buttons is clicked and file stopped keep playing through rest of files
+                    if (repeatClicked == 1)
+                    {
+                        
+                        
+                        if (repeatsPlayed <numNotes)
+                        {
+                            
+                            noteToPlay = notesPlayed[repeatsPlayed];
+                            playfile(noteToPlay);
+                            repeatsPlayed ++ ;
+                        }
+                        else
+                        {
+                            changeState(Finished);
+                            
+                        }
                     }
                     break;
                 case Starting:
@@ -312,6 +481,10 @@ private:
                     break;
                 case Finished:
                     playButton.setEnabled (true);
+                    filesPlayed=0;
+                    repeatClicked =0;
+                    playClicked=0;
+                    
                     transportSource.stop();
                     transportSource.setPosition (0.0);
                     break;
@@ -338,17 +511,27 @@ private:
         transportSource.setPosition (0.0);
         changeState (Starting);
     }
-    // this code is what is crashing the plugin
-    // ###THIS WOULD WORK #####
-    // int choice2 = Random::getSystemRandom().nextInt(35);
-    // playfile(choice2);
-    // ### i am trying to replace it with this //
+    
+
+    void repeatButtonClicked()
+    {
+
+        repeatClicked =1;
+        repeatsPlayed = 1;
+        playfile(notesPlayed[0]);
+        
+    }
+    
     void playButtonClicked()
     {
+        
+        if (filesPlayed == numNotes)
+        {
+            filesPlayed = 0;
+        }
         myvector.clear();
         myvector.empty();
-    // I am not sure where this for loop should be located and
-     //   if the variables are correctly in scope
+
         for (int i=0; i < 12; i++)
         {
             if (numbers[i] == 1)
@@ -380,41 +563,54 @@ private:
             }
             int f = myvector.at(choice);
             noteToPlay = f + (oct*12);
+            notesPlayed[0]=noteToPlay;
             playfile(noteToPlay);
+            playFilesToPlay = numNotes -1;
+            playClicked = 1;
+            
         }
     }
+    // this button chooses that 4 notes will be played randomly
     void noteButtonClicked()
     {
+        eightNoteButton.setEnabled (true);
+        eightNoteButtonpressed=0;
         if (notesButtonpressed == 0)
         {
+            filesPlayed=0;
             numNotes = 4;
             noteButton.setEnabled (false);
             notesButtonpressed = 1;
         }
         else
         {
+            filesPlayed=0;
             numNotes = 2;
             noteButton.setEnabled (true);
             notesButtonpressed = 1;
         }
     }
+    // this button chooses that 6 notes will be chosen randomly
     void eightnoteButtonClicked()
     {
+        noteButton.setEnabled (true);
+        notesButtonpressed =0;
         if (eightNoteButtonpressed == 0)
         {
-            numNotes = 8;
+            filesPlayed=0;
+            numNotes = 6;
             eightNoteButton.setEnabled (false);
             eightNoteButtonpressed = 1;
         }
         else
         {
-        
+            filesPlayed=0;
             numNotes = 2;
             eightNoteButton.setEnabled (true);
             eightNoteButtonpressed = 1;
         }
     }
-    
+    // this button makes the range one octave instead of 2
     void oneOctaveButtonClicked()
     {
         if (oneOctaveButtonpressed == 0)
@@ -430,6 +626,13 @@ private:
             oneOctaveButton.setEnabled (true);
             oneOctaveButtonpressed = 1;
         }
+    }
+    // methods that play all the notes 
+    void playCButtonClicked()
+    {
+        oneShot=1;
+        playfile(0);
+        
     }
     void includeCButtonClicked()
     {
@@ -447,6 +650,11 @@ private:
             includeCButtonpressed = 0;
         }
     }
+    void playCsharpButtonClicked()
+    {
+        oneShot=1;
+        playfile(1);
+    }
     void includeCsharpButtonClicked()
     {
         if (includeCsharpButtonpressed == 0)
@@ -462,6 +670,11 @@ private:
             includeCsharpButton.setEnabled (true);
             includeCsharpButtonpressed = 0;
         }
+    }
+    void playDButtonClicked()
+    {
+        oneShot=1;
+        playfile(2);
     }
     void includeDButtonClicked()
     {
@@ -479,7 +692,11 @@ private:
             includeDButtonpressed = 0;
         }
     }
-
+    void playDsharpButtonClicked()
+    {
+        oneShot=1;
+        playfile(3);
+    }
     void includeDsharpButtonClicked()
     {
         if (includeDsharpButtonpressed == 0)
@@ -495,6 +712,11 @@ private:
             includeDsharpButton.setEnabled (true);
             includeDsharpButtonpressed = 0;
         }
+    }
+    void playEButtonClicked()
+    {
+        oneShot=1;
+        playfile(4);
     }
     void includeEButtonClicked()
     {
@@ -512,6 +734,11 @@ private:
             includeEButtonpressed = 0;
         }
     }
+    void playFButtonClicked()
+    {
+        oneShot=1;
+        playfile(5);
+    }
     void includeFButtonClicked()
     {
         if (includeFButtonpressed == 0)
@@ -527,6 +754,12 @@ private:
             includeFButton.setEnabled (true);
             includeFButtonpressed = 0;
         }
+    }
+    void playFsharpButtonClicked()
+    {
+        oneShot=1;
+        playfile(6);
+        
     }
     void includeFsharpButtonClicked()
     {
@@ -544,6 +777,11 @@ private:
             includeFsharpButtonpressed = 0;
         }
     }
+    void playGButtonClicked()
+    {
+        oneShot=1;
+        playfile(7);
+    }
     void includeGButtonClicked()
     {
         if (includeGButtonpressed == 0)
@@ -560,7 +798,11 @@ private:
             includeGButtonpressed = 0;
         }
     }
-    
+    void playGsharpButtonClicked()
+    {
+        oneShot=1;
+        playfile(8);
+    }
     void includeGsharpButtonClicked()
     {
         if (includeDsharpButtonpressed == 0)
@@ -576,6 +818,11 @@ private:
             includeGsharpButton.setEnabled (true);
             includeGsharpButtonpressed = 0;
         }
+    }
+    void playAButtonClicked()
+    {
+        oneShot=1;
+        playfile(9);
     }
     void includeAButtonClicked()
     {
@@ -593,6 +840,11 @@ private:
             includeGsharpButtonpressed = 0;
         }
     }
+    void playAsharpButtonClicked()
+    {
+        oneShot=1;
+        playfile(10);
+    }
     void includeAsharpButtonClicked()
     {
         if (includeAsharpButtonpressed == 0)
@@ -608,6 +860,11 @@ private:
             includeAsharpButton.setEnabled (true);
             includeAsharpButtonpressed = 0;
         }
+    }
+    void playBButtonClicked()
+    {
+        oneShot=1;
+        playfile(11);
     }
     void includeBButtonClicked()
     {
@@ -684,23 +941,39 @@ private:
         changeState (Initial);
 
     }
+    Label titleLabel;
+    Label instructionsLabel;
+    Label instructions2Label;
     TextButton playButton;
     TextButton noteButton;
     TextButton eightNoteButton;
     TextButton oneOctaveButton;
     TextButton includeCButton;
+    TextButton playCButton;
     TextButton includeCsharpButton;
+    TextButton playCsharpButton;
     TextButton includeDButton;
+    TextButton playDButton;
     TextButton includeDsharpButton;
+    TextButton playDsharpButton;
     TextButton includeEButton;
+    TextButton playEButton;
     TextButton includeFButton;
+    TextButton playFButton;
     TextButton includeFsharpButton;
+    TextButton playFsharpButton;
     TextButton includeGButton;
+    TextButton playGButton;
     TextButton includeGsharpButton;
+    TextButton playGsharpButton;
     TextButton includeAButton;
+    TextButton playAButton;
     TextButton includeAsharpButton;
+    TextButton playAsharpButton;
     TextButton includeBButton;
+    TextButton playBButton;
     TextButton resetButton;
+    TextButton repeatButton;
     
     //Slider slider;
     //Slider slider;
@@ -739,13 +1012,20 @@ private:
     int includeAsharpButtonpressed = 0;
     int includeBButtonpressed = 0;
     int resetButtonpressed = 0;
+    int repeatButtonpressed = 0;
     int found =0;
+    int playFilesToPlay=0;
+    int playClicked=0;
+    int repeatClicked=0;
+    int repeatsPlayed=0;
+    int oneShot=0;
 
     
     // size of each binary file is the same
-    int mp3Size = 21924;
+    int mp3Size = 23174;
     // boolean array of available notes from chrom scale
     int numbers[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+    int notesPlayed[6] ={0,0,0,0,0,0};
     // vector to contain notes
     std::vector<int> myvector;
     
